@@ -28,7 +28,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> {csrf.disable();}); //CSRF 비활성화
-
+        //인가
+        http.authorizeHttpRequests((auth) -> {
+            auth.requestMatchers(HttpMethod.POST,"/api/link/sync").hasRole("ADMIN"); // "ADMIN" 권한이 있는자만 접근가능
+            auth.requestMatchers("/api/link/**").authenticated(); // 로그인한 사람 누구나 허용
+            auth.anyRequest().permitAll(); // 그외
+    });
+     
     }
 
     @Bean
