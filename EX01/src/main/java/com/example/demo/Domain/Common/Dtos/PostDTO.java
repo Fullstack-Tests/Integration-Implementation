@@ -37,7 +37,19 @@ public class PostDTO {
     }
 
     // TODO: Entity → DTO 변환(static). PostDTO.builder() 로 매핑하여 반환
-    public static PostDTO from(Post p) {
-        throw new UnsupportedOperationException("TODO: from 구현");
+
+    // Entity -> DTO 변환
+    // DB에 저장된 Entity를 외부 API 응답용 DTO로 변환
+    public static PostDTO from(Post p) { // static: 객체 생성 없이 바로 호출하기 위해 사용
+        // Post(Entity)의 값을 PostDTO(DTO) 필드에 매핑해 변환
+        PostDTO postDTO = PostDTO.builder()
+                .id(p.getId())
+                .userId(p.getUserId())
+                .title(p.getTitle())
+                .body(p.getBody())
+                .createAt(p.getCreateAt())
+                .build();
+
+        return postDTO;
     }
 }
