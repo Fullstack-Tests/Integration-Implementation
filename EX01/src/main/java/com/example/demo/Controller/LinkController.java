@@ -29,19 +29,18 @@ public class LinkController {
     public ResponseEntity<Map<String, Object>> sync()
     {
         Map<String, Object> responseMap = new HashMap<>(); // 데이터를 담을 Map 생성
-        int count = linkService.syncPosts(); // 외부 API 동기화 후 저장 건수 반환
+        int count = linkService.syncPosts(); // 동기화 후 저장 건수 반환
         responseMap.put("count",count); // 저장 건수 Map에 추가
-        responseMap.put("message","연계 동기화 성공!"); // 메시지 Map에 추가
-        return ResponseEntity.status(HttpStatus.OK).body(responseMap); // 200 + Map 반환
+        responseMap.put("message","연계 동기화 성공!"); // 200 + Map 반환
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
 
     // TODO: 연계 데이터 목록 재제공 — GET /api/link/posts
     //  - linkService.getPosts() 결과를 200 반환
     @GetMapping(value = "/posts", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> posts()
+    public ResponseEntity<?> posts() // 반환 타입 미정
     {
-        throw new UnsupportedOperationException("TODO: posts 구현");
-
+        return ResponseEntity.ok(linkService.getPosts()); // 전체 목록 조회 후 200 반환
     }
 
 
