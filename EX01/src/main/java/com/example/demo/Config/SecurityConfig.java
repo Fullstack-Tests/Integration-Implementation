@@ -2,6 +2,8 @@ package com.example.demo.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +27,8 @@ public class SecurityConfig {
     //  - 인증: httpBasic 사용
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // 임시: 모두 허용 (TODO 에서 위 규칙으로 교체)
-        http.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
-        return http.build();
+        http.csrf(csrf -> {csrf.disable();}); //CSRF 비활성화
+
     }
 
     @Bean
@@ -39,10 +39,6 @@ public class SecurityConfig {
     // TODO: 인메모리 사용자 — user(USER) / admin(ADMIN), 비밀번호 "1234"
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("1234")).roles("USER").build();
-        UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("1234")).roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(user, admin);
+
     }
 }
