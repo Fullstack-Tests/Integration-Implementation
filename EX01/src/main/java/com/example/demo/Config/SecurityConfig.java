@@ -47,6 +47,10 @@ public class SecurityConfig {
     // TODO: 인메모리 사용자 — user(USER) / admin(ADMIN), 비밀번호 "1234"
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
-
+        UserDetails user = User.withUsername("user") // 인메모리 사용자
+                .password(passwordEncoder().encode("1234")).roles("USER").build();
+        UserDetails admin = User.withUsername("admin") // 인메모리 사용자
+                .password(passwordEncoder().encode("1234")).roles("ADMIN").build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
