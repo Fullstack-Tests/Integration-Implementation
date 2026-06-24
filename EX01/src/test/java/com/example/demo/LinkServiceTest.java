@@ -23,5 +23,7 @@ class LinkServiceTest {
         int count = linkService.syncPosts();
         // 반환된 저장 건수 count가 0보다 큰지 검증
         assertTrue(count > 0, "저장 건수는 0 보다 커야 합니다."); // syncPosts(): DB 저장, 저장 건수 반환
+        // getPosts().isEmpty()를 호출해 조회한 전체 목록이 비어있지 않은지 검증
+        assertTrue(!linkService.getPosts().isEmpty(), "저장된 데이터가 존재하지 않습니다."); // getPosts(): DB 저장된 연계 데이터 목록 제공
     }
 }
