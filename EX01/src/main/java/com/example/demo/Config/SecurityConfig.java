@@ -34,7 +34,9 @@ public class SecurityConfig {
             auth.requestMatchers("/api/link/**").authenticated(); // 로그인한 사람 누구나 허용
             auth.anyRequest().permitAll(); // 그외
     });
-     
+        //인증
+        http.httpBasic(Customizer.withDefaults()); // httpBasic 사용
+        return http.build();
     }
 
     @Bean
