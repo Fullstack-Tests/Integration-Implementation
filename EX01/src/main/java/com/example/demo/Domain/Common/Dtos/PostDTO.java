@@ -20,8 +20,20 @@ public class PostDTO {
     // ===== 기능(변환 메서드) : 학생 구현 =====
 
     // TODO: DTO → Entity 변환. Post.builder() 로 id/userId/title/body/createAt 매핑하여 반환
+
+    // DTO -> Entity 변환
+    // 외부 API에서 받은 DTO 데이터를 DB 저장용 Entity로 변환
     public Post toEntity() {
-        throw new UnsupportedOperationException("TODO: toEntity 구현");
+        // PostDTO(DTO)의 값을 Post(Entity) 필드에 매핑해 변환
+        Post post = Post.builder()  // builder(): 객체를 단계적으로 생성하는 패턴
+                .id(id)
+                .userId(userId)
+                .title(title)
+                .body(body)
+                .createAt(createAt)
+                .build();
+
+        return post;
     }
 
     // TODO: Entity → DTO 변환(static). PostDTO.builder() 로 매핑하여 반환
