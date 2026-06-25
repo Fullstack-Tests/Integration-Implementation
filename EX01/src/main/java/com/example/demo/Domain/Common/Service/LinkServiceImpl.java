@@ -86,7 +86,11 @@ public class LinkServiceImpl implements LinkService {
     @Override
     @Transactional(readOnly = true)
     public List<PostDTO> getPosts() {
-        throw new UnsupportedOperationException("TODO: getPosts 구현");
+        List<Post> entityList = postRepository.findAll();
+
+        return entityList.stream()
+                .map(entity -> PostDTO.from(entity))
+                .toList();
     }
 
     // TODO: 단건 재제공
