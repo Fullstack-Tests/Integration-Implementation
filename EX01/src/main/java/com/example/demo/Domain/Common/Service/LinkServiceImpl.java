@@ -73,8 +73,10 @@ public class LinkServiceImpl implements LinkService {
 
         postRepository.saveAll(entityList);
 
-
+        int saveCount = entityList.size();
+        return saveCount;
     }
+
 
 
 
