@@ -19,6 +19,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -99,6 +100,12 @@ public class LinkServiceImpl implements LinkService {
     @Override
     @Transactional(readOnly = true)
     public PostDTO getPost(Long id) {
-        throw new UnsupportedOperationException("TODO: getPost 구현");
+        Optional<Post> postOptional = postRepository.findById(id);
+
+        if (postOptional.isPresent()) {
+            return PostDTO.from(postOptional.get());
+        }
+
+        throw new MyBizException("존재하지 않는 게시글입니다.");
     }
 }
