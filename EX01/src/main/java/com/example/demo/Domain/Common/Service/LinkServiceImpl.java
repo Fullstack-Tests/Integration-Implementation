@@ -1,6 +1,7 @@
 package com.example.demo.Domain.Common.Service;
 
 import com.example.demo.Domain.Common.Dtos.PostDTO;
+import com.example.demo.Domain.Common.Entity.Post;
 import com.example.demo.Domain.Common.Repository.PostRepository;
 import com.example.demo.Exception.MyBizException;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -57,6 +59,19 @@ public class LinkServiceImpl implements LinkService {
             log.error("외부 API 연계 장애 발생. 상태코드: {}", responseEntity.getStatusCode());
             throw new MyBizException("연계 장애 발생");
         }
+
+        PostDTO[] postArray = responseEntity.getBody();
+
+
+        List<Post> entityList = Arrays.stream(postArray)
+                .map(dto -> {
+                    Post entity = dto.toEntity();
+                    entity.setCreateAt(LocalDateTime.now());
+                    return entity;
+                })
+                .toList();
+
+        postRepository.saveAll(entityList);
 
 
     }
