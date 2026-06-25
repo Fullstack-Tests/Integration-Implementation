@@ -52,6 +52,13 @@ public class LinkServiceImpl implements LinkService {
                 null,
                 PostDTO[].class
         );
+
+        if (responseEntity.getStatusCode() != HttpStatus.OK || responseEntity.getBody() == null) {
+            log.error("외부 API 연계 장애 발생. 상태코드: {}", responseEntity.getStatusCode());
+            throw new MyBizException("연계 장애 발생");
+        }
+
+
     }
 
 
