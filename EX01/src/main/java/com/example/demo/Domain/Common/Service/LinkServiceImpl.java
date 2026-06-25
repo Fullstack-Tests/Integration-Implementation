@@ -35,6 +35,7 @@ public class LinkServiceImpl implements LinkService {
     //  - 응답 PostDTO[] 를 돌며 createAt=now() 설정 후 postRepository.save(dto.toEntity())
     //  - 저장 건수(int) 반환
     @Override
+    @Transactional
     public int syncPosts() {
         throw new UnsupportedOperationException("TODO: syncPosts 구현");
     }
