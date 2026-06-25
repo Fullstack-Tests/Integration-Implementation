@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,8 +38,23 @@ public class LinkServiceImpl implements LinkService {
     @Override
     @Transactional
     public int syncPosts() {
-        throw new UnsupportedOperationException("TODO: syncPosts 구현");
+        RestTemplate restTemplate = new RestTemplate();
+
+        URI uri = UriComponentsBuilder.fromHttpUrl(apiBase)
+                .path("/posts")
+                .queryParam("_limit", 10)
+                .build()
+                .toUri();
+
+        ResponseEntity<PostDTO[]> responseEntity = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                null,
+                PostDTO[].class
+        );
     }
+
+
 
     // TODO: DB 저장된 연계 데이터 목록 재제공
     //  - @Transactional(readOnly = true)
