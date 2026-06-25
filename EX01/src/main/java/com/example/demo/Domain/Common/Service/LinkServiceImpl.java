@@ -84,6 +84,7 @@ public class LinkServiceImpl implements LinkService {
     //  - @Transactional(readOnly = true)
     //  - findAll() → PostDTO.from 으로 매핑하여 List 반환
     @Override
+    @Transactional(readOnly = true)
     public List<PostDTO> getPosts() {
         throw new UnsupportedOperationException("TODO: getPosts 구현");
     }
