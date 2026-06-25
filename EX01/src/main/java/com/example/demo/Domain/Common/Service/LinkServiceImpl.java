@@ -97,6 +97,7 @@ public class LinkServiceImpl implements LinkService {
     //  - @Transactional(readOnly = true)
     //  - findById(id) (없으면 MyBizException) → PostDTO.from
     @Override
+    @Transactional(readOnly = true)
     public PostDTO getPost(Long id) {
         throw new UnsupportedOperationException("TODO: getPost 구현");
     }
